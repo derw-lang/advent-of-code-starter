@@ -9,6 +9,7 @@ To get started:
 - Create a folder in `src/2023`
 - Name your file `src/2023/Day1.derw`
 - Create your test data in `src/2023/Day1.txt`
+- Run `derw install`
 - Run `derw compile`
 - Then run the file generated via `ts-node src/2023/Day1.ts`
 
