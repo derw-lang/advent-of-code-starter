@@ -1,0 +1,51 @@
+import "../../derw-packages/derw-lang/stdlib/src/List" as List
+import "../../derw-packages/derw-lang/stdlib/src/Maybe" exposing ( Maybe )
+import "../FileReader" exposing ( getAdventInput, toInts )
+
+splitOnNothingHelper: Maybe number -> List (List number) -> List (List number)
+splitOnNothingHelper item xs =
+    case item of
+        Just { value } ->
+            case List.reverse xs of
+                [] ->
+                    [ [ value ] ]
+
+                head :: tail ->
+                    let
+                        newHead: List number
+                        newHead =
+                            List.append head [ value ]
+                    in
+                        List.append (List.reverse tail) [ newHead ]
+
+        Nothing ->
+            List.append xs [ [ ] ]
+
+splitOnNothing: List (Maybe number) -> List (List number)
+splitOnNothing xs =
+    List.foldl (\item acc -> splitOnNothingHelper item acc) [ ] xs
+
+sum: List number -> number
+sum xs =
+    List.foldl (\item total -> item + total) 0 xs
+
+highestTotal: List number -> number
+highestTotal xs =
+    List.foldl (\item high ->
+        if item > high then
+            item
+        else
+            high) 0 xs
+
+part1: void
+part1 =
+    getAdventInput "src/2022/Day1.txt"
+        |> toInts
+        |> splitOnNothing
+        |> List.map sum
+        |> highestTotal
+        |> console.log
+
+main: void
+main =
+    part1

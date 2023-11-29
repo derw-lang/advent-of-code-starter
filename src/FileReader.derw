@@ -1,0 +1,30 @@
+import "../derw-packages/derw-lang/stdlib/src/Maybe" exposing ( Maybe )
+import "../derw-packages/derw-lang/stdlib/src/Number" as Number
+import fs
+import globalThis exposing ( Buffer )
+
+exposing ( getAdventInput, toInts )
+
+toString: Buffer -> string
+toString buffer =
+    buffer.toString()
+
+toInt: string -> number
+toInt str =
+    globalThis.parseInt str 10
+
+{-
+Tries to convert a list of strings to a list of maybe ints
+-}
+toInts: List string -> List (Maybe number)
+toInts list =
+    list.map (\x -> Number.parseInt x 10)
+
+{-
+Gets the advent of code input from a file as a list of lines
+-}
+getAdventInput: string -> List string
+getAdventInput filename =
+    fs.readFileSync filename
+        |> toString
+        |> (\y -> y.split "\n")

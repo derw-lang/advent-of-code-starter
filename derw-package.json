@@ -1,0 +1,7 @@
+{
+    "name": "advent-of-code-starter",
+    "exposing": [],
+    "dependencies": {
+        "derw-lang/stdlib": "main"
+    }
+}
